@@ -7,28 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inria+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Inria+Sans:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html,body{
-  width:100%;
-  height:100%;
-  background:#F4F0E6;
-  overflow:hidden;
-}
+html,body{width:100%;height:100%;background:#F4F0E6;overflow:hidden;}
 
 .screen{
-  position:fixed;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
   transition:opacity 0.7s ease;
 }
-.screen.active{
-  opacity:1;
-  pointer-events:all;
-}
+.screen.active{opacity:1;pointer-events:all;}
 
 /* ── INTRO ── */
 #intro{
@@ -39,635 +27,359 @@ html,body{
     radial-gradient(ellipse 44% 50% at 66% 50%,rgba(212,176,186,.48) 0%,transparent 44%),
     radial-gradient(ellipse 38% 32% at 26% 74%,rgba(196,214,228,.38) 0%,transparent 40%),
     #E8E0D4;
-  padding:32px 40px;
-  text-align:center;
-  overflow:hidden;
+  padding:0 40px;text-align:center;
 }
 .intro-logo{
   font-family:'Instrument Serif',Georgia,serif;
-  font-size:clamp(72px,10vw,120px);
-  font-weight:400;
-  letter-spacing:-0.02em;
-  line-height:1;
+  font-size:clamp(82px,11vw,128px);
+  font-weight:400;letter-spacing:-0.02em;line-height:1;
   color:rgba(255,251,243,.93);
-  margin-bottom:30px;
+  margin-bottom:26px;
 }
 .intro-logo .oo{color:rgba(128,136,186,.9);}
+.intro-problem{
+  font-family:'Inria Serif',serif;
+  font-size:clamp(19px,2.2vw,26px);
+  color:#3A2C22;line-height:1.7;
+  font-weight:300;
+  margin-bottom:14px;
+  max-width:560px;
+}
 .intro-sub{
   font-family:'Inria Serif',serif;
-  font-size:clamp(15px,1.6vw,18px);
-  color:#3A2C22;
-  line-height:2;
-  font-weight:300;
-  font-style:italic;
-  margin-bottom:54px;
-  max-width:620px;
+  font-size:clamp(16px,1.8vw,20px);
+  color:#6A5848;line-height:1.9;
+  font-weight:300;font-style:italic;
+  margin-bottom:52px;max-width:480px;
 }
 .btn-begin{
   font-family:'Inria Sans',sans-serif;
-  font-size:15px;
-  font-weight:400;
-  letter-spacing:.06em;
-  color:white;
-  background:rgba(112,116,166,.9);
-  border:none;
-  border-radius:50px;
-  padding:16px 62px;
-  cursor:pointer;
+  font-size:17px;font-weight:400;letter-spacing:.06em;
+  color:white;background:rgba(112,116,166,.9);
+  border:none;border-radius:50px;
+  padding:17px 68px;cursor:pointer;
   transition:opacity .2s,transform .18s;
 }
 .btn-begin:hover{opacity:.8;transform:translateY(-2px);}
+.btn-begin:active{transform:scale(.97);}
 
 /* ── GAME ── */
 #game{
   background:#F4F0E6;
-  position:fixed;
-  inset:0;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:24px;
-  padding:20px 24px 24px;
+  position:fixed;inset:0;overflow:hidden;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:0;padding:0;
 }
 
-.blob-wrap{
-  position:relative;
-  display:flex;
-  flex-direction:column;
+.game-header{
+  position:absolute;top:0;left:0;right:0;
+  display:flex;flex-direction:column;
   align-items:center;
-  justify-content:center;
-  z-index:2;
-  flex:0 0 auto;
+  padding:0 32px;
+  z-index:10;pointer-events:none;
 }
-
-.blob{
-  width:88px;
-  height:88px;
-  border-radius:50%;
-  margin-top:0;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  padding-bottom:11px;
-  transition:background 1.1s ease;
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 4px 22px rgba(0,0,0,.1);
+.game-logo-pill{
+  background:rgba(255,255,255,.55);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  padding:7px 26px 9px;
+  border-radius:0 0 50px 50px;
+  border:0.5px solid rgba(255,255,255,.75);
+  border-top:none;
+  margin-bottom:16px;
 }
-.blob-fill{
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  background:rgba(255,255,255,.2);
-  transition:height .55s ease;
-}
-.blob-lbl{
+.game-logo-text{
   font-family:'Instrument Serif',serif;
-  font-size:11.5px;
-  letter-spacing:.04em;
-  color:rgba(255,255,255,.88);
-  position:relative;
-  z-index:2;
+  font-size:17px;letter-spacing:0.02em;
+  color:rgba(58,44,34,.55);
 }
-.prog{
-  display:flex;
-  gap:6px;
-  margin-top:9px;
+.game-logo-text .oo-sm{color:rgba(100,108,170,.7);}
+.gp-wrap{
+  display:flex;flex-direction:column;
+  align-items:center;gap:8px;
+  width:100%;max-width:380px;
 }
-.dot{
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:rgba(110,100,88,.2);
-  transition:background .4s,transform .3s;
+.gp-bar{
+  display:flex;gap:5px;width:100%;
 }
-.dot.done{
-  background:rgba(110,100,88,.55);
-  transform:scale(1.2);
+.gp-seg{
+  flex:1;height:3px;border-radius:2px;
+  background:rgba(110,100,88,.12);
+  overflow:hidden;position:relative;
+}
+.gp-seg::after{
+  content:'';
+  position:absolute;top:0;left:0;bottom:0;
+  width:var(--fill,0%);
+  background:rgba(110,100,88,.44);
+  border-radius:2px;
+  transition:width .45s ease;
+}
+.gp-seg.done::after{
+  width:100%;
+  background:rgba(110,100,88,.32);
+  transition:width .35s ease;
 }
 
+/* ── CARDS ── */
 .cards-row{
   display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:clamp(18px,2.4vw,34px);
-  width:100%;
-  max-width:900px;
+  align-items:center;justify-content:center;
+  gap:clamp(20px,3vw,52px);
+  width:100%;max-width:960px;
   flex:0 1 auto;
+  padding:0 24px;
+  margin-top:clamp(86px,12vh,108px);
 }
-
 .card{
- width:clamp(215px,20vw,270px);
-  aspect-ratio:600 / 978;
-  height:auto;
-  border-radius:15px;
-  overflow:hidden;
-  cursor:pointer;
-  flex:0 0 auto;
+  width:clamp(200px,21vw,280px);
+  aspect-ratio:600/978;height:auto;
+  border-radius:16px;overflow:hidden;cursor:pointer;flex:0 0 auto;
   border:3px solid rgba(255,255,255,.95);
-  background:transparent;
   box-shadow:0 3px 10px rgba(70,52,34,.07),0 7px 26px rgba(70,52,34,.07),0 14px 40px rgba(70,52,34,.05);
   transition:transform .22s ease,box-shadow .22s ease,border-color .16s;
 }
-
 .card:hover{
-  transform:translateY(-11px);
+  transform:translateY(-12px);
   box-shadow:0 8px 22px rgba(70,52,34,.1),0 16px 48px rgba(70,52,34,.12),0 26px 60px rgba(70,52,34,.07);
 }
-
 .card.chosen{
-  transform:translateY(-11px) scale(1.022);
+  transform:translateY(-12px) scale(1.022);
   border-color:rgba(140,146,200,.82);
 }
-
-.card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  pointer-events:none;
-}
+.card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
 
 /* ── TRANSITION ── */
 #transition{
   background:#F4F0E6;
-  position:fixed;
-  inset:0;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-  padding:0 24px;
-  text-align:center;
+  position:fixed;inset:0;overflow:hidden;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:24px;
+  padding:0 24px;text-align:center;
 }
 .t-orb{
-width:min(42vw,250px);
-height:min(42vw,250px);
-border-radius:50%;
-filter:blur(46px);
-opacity:0;
-animation:orbPulse 3s ease forwards, auraFloat 3s ease-in-out infinite;
+  width:min(48vw,280px);height:min(48vw,280px);
+  border-radius:50%;filter:blur(50px);
+  opacity:0;
+  animation:tOrbIn 3s ease forwards;
 }
-@keyframes orbPulse{
-0% {opacity:0;transform:scale(.15);}
-18% {opacity:.42;}
-44% {opacity:.82;transform:scale(1.04);}
-68% {opacity:.94;transform:scale(.98);}
-84% {opacity:1;transform:scale(1.02);}
-100%{opacity:1;transform:scale(1);}
-}
-@keyframes auraFloat{
-0% { transform: scale(1) translate(0px,0px); }
-25% { transform: scale(1.05) translate(-5px,3px); }
-50% { transform: scale(0.97) translate(4px,-3px); }
-75% { transform: scale(1.03) translate(-3px,-4px); }
-100% { transform: scale(1) translate(0px,0px); }
+@keyframes tOrbIn{
+  0%  {opacity:0;transform:scale(.12);}
+  20% {opacity:.45;}
+  50% {opacity:.88;transform:scale(1.05);}
+  75% {opacity:.96;transform:scale(.97);}
+  100%{opacity:1;transform:scale(1);}
 }
 .t-lbl{
   font-family:'Inria Serif',serif;
-  font-size:16px;
-  color:#7A7060;
-  font-weight:300;
-  font-style:italic;
-  letter-spacing:.03em;
-  text-align:center;
-  animation:fadeWords 9s ease forwards;
-  white-space:normal;
-  max-width:300px;
-  line-height:1.8;
+  font-size:18px;color:#7A7060;
+  font-weight:300;font-style:italic;letter-spacing:.03em;
+  opacity:0;animation:tLblIn 3s ease forwards;
 }
-@keyframes fadeWords{
-  0%{opacity:0;}
-  10%{opacity:1;}
-  85%{opacity:1;}
-  100%{opacity:.5;}
+@keyframes tLblIn{
+  0%{opacity:0;}15%{opacity:1;}
+  85%{opacity:1;}100%{opacity:.55;}
 }
 
 /* ── RESULT ── */
 #result{
   background:#F4F0E6;
-  overflow-y:auto;
-  overflow-x:hidden;
+  overflow-y:auto;overflow-x:hidden;
   justify-content:flex-start;
-  padding:44px 20px 100px;
+  padding:48px 24px 100px;
   align-items:center;
   -webkit-overflow-scrolling:touch;
 }
 .r-ey{
   font-family:'Inria Serif',serif;
-  font-size:12px;
-  color:#9A8E7A;
-  font-weight:300;
-  letter-spacing:.07em;
-  text-align:center;
-  margin-bottom:16px;
+  font-size:13px;color:#9A8E7A;
+  font-weight:300;letter-spacing:.1em;
+  text-align:center;margin-bottom:18px;
   text-transform:uppercase;
 }
 
-/* ── Aura canvas — CSS outer glow pulses continuously ── */
 @keyframes auraGlowPulse{
-  0%,100%{filter:drop-shadow(0 0 14px var(--glow-color,rgba(160,160,220,.40)))
-                 drop-shadow(0 0  5px var(--glow-color,rgba(160,160,220,.20)));}
-  50%    {filter:drop-shadow(0 0 40px var(--glow-color,rgba(160,160,220,.72)))
-                 drop-shadow(0 0 16px var(--glow-color,rgba(160,160,220,.42)));}
+  0%,100%{filter:drop-shadow(0 0 16px var(--glow,rgba(160,160,220,.38))) drop-shadow(0 0 6px var(--glow,rgba(160,160,220,.18)));}
+  50%    {filter:drop-shadow(0 0 44px var(--glow,rgba(160,160,220,.70))) drop-shadow(0 0 18px var(--glow,rgba(160,160,220,.40)));}
+}
+@keyframes auraReveal{
+  0%  {opacity:0;transform:scale(.68);}
+  60% {opacity:1;transform:scale(1.05);}
+  80% {transform:scale(.98);}
+  100%{opacity:1;transform:scale(1);}
 }
 #auraCanvas{
   display:block;
+  width:min(74vw,400px);height:min(74vw,400px);
+  cursor:default;
   background:transparent;
-  width:min(76vw,380px);
-  height:min(76vw,380px);
-  cursor:crosshair;
   animation:auraGlowPulse 3.5s ease-in-out infinite;
 }
-/* Hover: JS adds this class — boosts to a large bright bloom */
-#auraCanvas.aura-hovered{
-  animation:none;
-  filter:drop-shadow(0 0 64px var(--glow-color,rgba(160,160,220,.85)))
-         drop-shadow(0 0 28px var(--glow-color,rgba(160,160,220,.55)))
-         drop-shadow(0 0 10px var(--glow-color,rgba(160,160,220,.35)));
-  transition:filter 0.25s ease;
+#auraCanvas.entering{
+  animation:
+    auraReveal 1.3s cubic-bezier(.22,1,.36,1) both,
+    auraGlowPulse 3.5s ease-in-out 1.2s infinite;
 }
-
 .r-name{
   font-family:'Instrument Serif',serif;
-  font-size:clamp(20px,3.2vw,32px);
-  color:#2E2820;
-  font-weight:400;
-  text-align:center;
-  letter-spacing:.01em;
-  margin:22px 0 10px;
+  font-size:clamp(26px,4vw,40px);
+  color:#2E2820;font-weight:400;
+  text-align:center;letter-spacing:.01em;
+  margin:24px 0 20px;
 }
-.r-tag{
+.r-desc{
   font-family:'Inria Serif',serif;
-  font-size:clamp(13px,1.6vw,15px);
-  color:#8A7A68;
-  font-weight:300;
-  font-style:italic;
-  text-align:center;
-  line-height:1.75;
-  max-width:400px;
-  margin:0 auto 14px;
+  font-size:clamp(16px,1.9vw,19px);
+  color:#4A3E32;line-height:2.05;
+  font-weight:300;text-align:center;
+  max-width:600px;margin:0 auto 40px;
 }
-
-/* Trait pills row */
-.r-traits-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  justify-content:center;
-  max-width:480px;
-  margin:0 auto 28px;
-}
-.r-pill{
+.r-btns{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.btn-share{
   font-family:'Inria Sans',sans-serif;
-  font-size:11px;
-  letter-spacing:.10em;
-  text-transform:uppercase;
-  color:#8A7A68;
-  border:1px solid #D8CCBA;
-  border-radius:50px;
-  padding:5px 14px;
+  font-size:16px;color:white;
+  background:#8088B0;border:none;
+  border-radius:50px;padding:15px 52px;
+  cursor:pointer;letter-spacing:.03em;
+  transition:opacity .2s,transform .18s;
 }
-
-/* Main info card */
-.r-card{
-  background:white;
-  border:.5px solid #E2D6C4;
-  border-radius:14px;
-  width:100%;
-  max-width:720px;
-  display:grid;
-  grid-template-columns:1fr .5px 1fr;
-  margin-bottom:36px;
-  overflow:hidden;
-}
-.r-dv{background:#E2D6C4;}
-.r-col{padding:28px 30px;}
-.r-ch{
-  font-family:'Inria Sans',sans-serif;
-  font-size:10px;
-  color:#B09070;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  font-weight:400;
-  margin-bottom:15px;
-}
-.r-body{
-  font-family:'Inria Serif',serif;
-  font-size:13.5px;
-  color:#4A3E32;
-  line-height:2;
-  font-weight:300;
-}
-.r-body p+p{margin-top:12px;}
-
-/* Best-match orbs column */
-.match-orbs{
-  display:flex;
-  gap:clamp(12px,2.5vw,26px);
-  align-items:flex-start;
-  justify-content:center;
-  padding-top:4px;
-}
-.match-item{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-}
-/* Orb uses radial-gradient fading to transparent — no CSS blur needed */
-@keyframes matchBreathe{
-  0%,100%{transform:scale(1.00);opacity:.88;}
-  50%    {transform:scale(1.06);opacity:1.00;}
-}
-.match-orb{
-  width:clamp(80px,12vw,110px);
-  height:clamp(80px,12vw,110px);
-  /* background set by JS via inline style */
-  animation:matchBreathe 4s ease-in-out infinite;
-}
-.match-item:nth-child(2) .match-orb{animation-delay:2s;}
-.match-name{
-  font-family:'Inria Serif',serif;
-  font-size:clamp(11px,1.3vw,12.5px);
-  color:#7A6E62;
-  font-weight:300;
-  font-style:italic;
-  text-align:center;
-  line-height:1.5;
-}
-
-@media(max-width:500px){
-  .r-card{grid-template-columns:1fr;}
-  .r-dv{width:100%;height:.5px;}
-  .match-orbs{gap:14px;}
-}
-.r-bridge{
-  font-family:'Inria Serif',serif;
-  font-size:clamp(14px,1.9vw,16.5px);
-  color:#4A3E32;
-  line-height:2.2;
-  text-align:center;
-  font-weight:300;
-  font-style:italic;
-  max-width:460px;
-  margin-bottom:38px;
-}
-.r-btns{
-  display:flex;
-  gap:13px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-.btn-ghost{
-  font-family:'Inria Sans',sans-serif;
-  font-size:14px;
-  color:#8088B0;
-  background:transparent;
-  border:1px solid #C4BCE0;
-  border-radius:50px;
-  padding:13px 34px;
-  cursor:pointer;
-  letter-spacing:.02em;
-  transition:background .2s;
-}
-.btn-ghost:hover{background:rgba(128,136,176,.07);}
-.btn-solid{
-  font-family:'Inria Sans',sans-serif;
-  font-size:14px;
-  color:white;
-  background:#8088B0;
-  border:none;
-  border-radius:50px;
-  padding:14px 36px;
-  cursor:pointer;
-  letter-spacing:.02em;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  transition:opacity .2s;
-}
-.btn-solid:hover{opacity:.82;}
+.btn-share:hover{opacity:.82;transform:translateY(-2px);}
+.btn-share:active{transform:scale(.97);}
 .btn-restart{
   font-family:'Inria Sans',sans-serif;
-  font-size:13px;
-  color:#9A8E7A;
-  background:transparent;
-  border:none;
-  cursor:pointer;
-  letter-spacing:.04em;
-  margin-top:22px;
-  text-decoration:underline;
-  text-underline-offset:3px;
+  font-size:14px;color:#9A8E7A;
+  background:transparent;border:none;
+  cursor:pointer;letter-spacing:.04em;
+  text-decoration:underline;text-underline-offset:3px;
   transition:opacity .2s;
 }
-.btn-restart:hover{opacity:.65;}
+.btn-restart:hover{opacity:.6;}
 
-/* ── RESULT ENTRANCE ANIMATIONS ── */
-@keyframes auraReveal{
-  0%  {opacity:0;transform:scale(0.72);}
-  60% {opacity:1;transform:scale(1.04);}
-  80% {transform:scale(0.98);}
-  100%{opacity:1;transform:scale(1);}
-}
-@keyframes auraGlow{
-  0%,100%{filter:drop-shadow(0 0 0px transparent);}
-  40%    {filter:drop-shadow(0 0 28px var(--glow-color,rgba(160,160,220,.55)));}
-}
 @keyframes slideUp{
-  from{opacity:0;transform:translateY(22px);}
+  from{opacity:0;transform:translateY(24px);}
   to  {opacity:1;transform:translateY(0);}
 }
-@keyframes fadeIn{
-  from{opacity:0;}
-  to  {opacity:1;}
-}
-
-.aura-enter{
-  animation:
-    auraReveal     1.3s cubic-bezier(0.22,1,0.36,1) both,
-    auraGlowPulse  3.5s ease-in-out 1.1s infinite;
-}
-.r-reveal-0{animation:fadeIn  0.6s ease 0.1s both;}
-.r-reveal-1{animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.55s both;}
-.r-reveal-2{animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.75s both;}
-.r-reveal-3{animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.90s both;}
-.r-reveal-4{animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 1.05s both;}
-.r-reveal-5{animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 1.20s both;}
-.r-reveal-6{animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 1.35s both;}
-
-/* responsive */
-@media (min-width:1024px) and (max-width:1512px){
-  #game{gap:20px;padding:18px 20px 20px;}
-  .cards-row{gap:24px;max-width:860px;}
-  .card{width:min(255px,22vw);}
-  .t-orb{width:min(38vw,220px);height:min(38vw,220px);}
-}
-
-@media (max-width:900px){
-  #game{gap:18px;padding:16px 14px 20px;}
-  .cards-row{gap:14px;}
-  .card{width:clamp(150px,30vw,210px);}
-  .t-lbl{font-size:15px;max-width:260px;}
-  .t-orb{width:min(52vw,220px);height:min(52vw,220px);}
-}
-
-@media (max-width:560px){
-  .cards-row{gap:12px;}
-  .card{width:42vw;}
-  .t-orb{width:min(66vw,240px);height:min(66vw,240px);}
-  .t-lbl{font-size:14px;max-width:220px;}
-}
-
-@media(max-width:500px){
-  .r-card{grid-template-columns:1fr;}
-  .r-dv{width:100%;height:.5px;}
-}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.rv0{animation:fadeIn  .6s ease  .1s both;}
+.rv1{animation:auraReveal 1.3s cubic-bezier(.22,1,.36,1) .2s both;}
+.rv2{animation:slideUp .7s cubic-bezier(.22,1,.36,1) .6s both;}
+.rv3{animation:slideUp .7s cubic-bezier(.22,1,.36,1) .8s both;}
+.rv4{animation:slideUp .7s cubic-bezier(.22,1,.36,1) .95s both;}
 </style>
 </head>
 <body>
 
-<!-- INTRO -->
 <div id="intro" class="screen active">
   <h1 class="intro-logo">Du<span class="oo">o·o</span>ra</h1>
-  <p class="intro-sub">
-    What kind of presence do you want people to remember you by?<br>
-    Two images. Follow your first instinct to visualize your aura.
-  </p>
+  <p class="intro-problem">Sometimes we don't have the words<br>to express what we really want.</p>
+  <p class="intro-sub">Two images. No words needed.<br>Follow your instinct.</p>
   <button class="btn-begin" onclick="startGame()">Begin</button>
 </div>
 
-<!-- GAME -->
 <div id="game" class="screen">
-  <div class="blob-wrap">
-    <div id="blob" class="blob">
-      <div id="blobFill" class="blob-fill" style="height:0%"></div>
-      <span id="blobLbl" class="blob-lbl">Duoora</span>
+  <div class="game-header">
+    <div class="game-logo-pill">
+      <span class="game-logo-text">Du<span class="oo-sm">o·o</span>ra</span>
     </div>
-    <div id="prog" class="prog"></div>
+    <div class="gp-wrap">
+      <div class="gp-bar">
+        <div class="gp-seg" id="gs0"></div>
+        <div class="gp-seg" id="gs1"></div>
+        <div class="gp-seg" id="gs2"></div>
+        <div class="gp-seg" id="gs3"></div>
+      </div>
+      </div>
   </div>
   <div id="cardsRow" class="cards-row"></div>
 </div>
 
-<!-- TRANSITION -->
 <div id="transition" class="screen">
   <div id="tOrb" class="t-orb"></div>
   <div class="t-lbl">Your aura, taking shape...</div>
 </div>
 
-<!-- RESULT -->
 <div id="result" class="screen">
-  <div id="rEy"   class="r-ey">This is your aura.</div>
-  <canvas id="auraCanvas"></canvas>
-  <div id="rName" class="r-name"></div>
-  <div id="rTag"  class="r-tag"></div>
-  <div id="rCard" class="r-card">
-    <div class="r-col">
-      <div class="r-ch">Your Vibe</div>
-      <div id="rVibe" class="r-body"></div>
-    </div>
-    <div class="r-dv"></div>
-    <div class="r-col">
-      <div class="r-ch">Best Match</div>
-      <div id="rMatch" class="match-orbs"></div>
-    </div>
+  <div id="rEy"   class="r-ey rv0">This is your aura.</div>
+  <canvas id="auraCanvas" class="rv1"></canvas>
+  <div id="rName" class="r-name rv2"></div>
+  <div id="rDesc" class="r-desc rv3"></div>
+  <div class="r-btns rv4">
+    <button class="btn-share" onclick="shareAura()">Share Your Aura</button>
+    <button class="btn-restart" onclick="startGame()">&#8592; Discover again</button>
   </div>
-  <p id="rBridge" class="r-bridge">
-    Is that really how others see you? Share with your friends and families to see.<br>
-    What if they could feel your aura even in your absence?
-  </p>
-  <div id="rBtns" class="r-btns">
-    <button class="btn-ghost" onclick="shareAura()">Share Your Aura</button>
-    <a class="btn-solid" href="https://www.angchinmoh.com.sg/funeral-preplanning/" target="_blank" rel="noopener">Design Yours ↗</a>
-  </div>
-  <button id="rRestart" class="btn-restart" onclick="startGame()">← Discover again</button>
 </div>
 
 <script>
-const PHASE_BG=[
-  'radial-gradient(circle at 38% 30%,#C8DDE8,#A8C4D4,#BCCEDE)',
-  'radial-gradient(circle at 38% 30%,#ECC8CA,#D4A8B8,#E8BCCA)',
-  'radial-gradient(circle at 38% 30%,#BEDAC4,#9CC0A6,#AECEB8)',
-  'radial-gradient(circle at 38% 30%,#EEE0A0,#D8C880,#ECD698)'
+const CARDS = [
+  {ph:0,a:'cards/moon.png',aw:0,as:0, b:'cards/sun.png',bw:1,bs:0},
+  {ph:0,a:'cards/winter.png',aw:0,as:0, b:'cards/summer.png',bw:1,bs:0},
+  {ph:0,a:'cards/jazz.png',aw:0,as:0, b:'cards/pop.png',bw:1,bs:0},
+  {ph:0,a:'cards/cave.png',aw:0,as:0, b:'cards/sunlight.png',bw:1,bs:0},
+  {ph:0,a:'cards/planet.png',aw:0,as:0, b:'cards/galaxy.png',bw:1,bs:0},
+  {ph:1,a:'cards/hourglass.png',aw:0,as:0, b:'cards/clock.png',bw:0,bs:1},
+  {ph:1,a:'cards/dandelion.png',aw:0,as:0, b:'cards/ancient-tree.png',bw:0,bs:1},
+  {ph:1,a:'cards/river.png',aw:0,as:0, b:'cards/still-lake.png',bw:0,bs:1},
+  {ph:1,a:'cards/open-window.png',aw:0,as:0, b:'cards/closed-door.png',bw:0,bs:1},
+  {ph:1,a:'cards/ash.png',aw:0,as:0, b:'cards/diamond.png',bw:0,bs:1},
+  {ph:2,a:'cards/rocking-horse.png',aw:0,as:0, b:'cards/carousel.png',bw:1,bs:0},
+  {ph:2,a:'cards/two-chairs.png',aw:0,as:0, b:'cards/long-table.png',bw:1,bs:0},
+  {ph:2,a:'cards/mountain.png',aw:0,as:0, b:'cards/beach.png',bw:1,bs:0},
+  {ph:2,a:'cards/private-show.png',aw:0,as:0, b:'cards/theatre.png',bw:1,bs:0},
+  {ph:2,a:'cards/candle.png',aw:0,as:0, b:'cards/campfire.png',bw:1,bs:0},
+  {ph:3,a:'cards/phone-post.png',aw:0,as:0, b:'cards/album.png',bw:0,bs:1},
+  {ph:3,a:'cards/fork-knife.png',aw:0,as:0, b:'cards/chopsticks.png',bw:0,bs:1},
+  {ph:3,a:'cards/taper-candle.png',aw:0,as:0, b:'cards/incense.png',bw:0,bs:1},
+  {ph:3,a:'cards/flower-grass.png',aw:0,as:0, b:'cards/flower-vase.png',bw:0,bs:1},
+  {ph:3,a:'cards/park.png',aw:0,as:0, b:'cards/living-room.png',bw:0,bs:1},
 ];
-const PHASE_NM=['Feeling','Meaning','Scene','Cultural'];
 
-const CARDS=[
-  {ph:0,a:'cards/moon.png',        wa:0,b:'cards/sun.png',          wb:1},
-  {ph:0,a:'cards/winter.png',      wa:0,b:'cards/summer.png',       wb:1},
-  {ph:1,a:'cards/clock.png',       wa:0,b:'cards/hourglass.png',    wb:1},
-  {ph:1,a:'cards/open-window.png', wa:1,b:'cards/closed-door.png',  wb:0},
-  {ph:2,a:'cards/candle.png',      wa:0,b:'cards/campfire.png',     wb:1},
-  {ph:2,a:'cards/two-chairs.png',  wa:0,b:'cards/long-table.png',   wb:1},
-  {ph:3,a:'cards/chopsticks.png',  wa:0,b:'cards/fork-knife.png',   wb:1},
-  {ph:3,a:'cards/incense.png',     wa:0,b:'cards/taper-candle.png', wb:1}
-];
-
-const PROFILES=[
+const PROFILES = [
   {
-    // slow deep swirls, gentle ripples — like touching a still pond
-    sc:[0,1],name:'— The Quiet Stone —',
-    tag:'Still. Present. Unmovable by things that pass.',
-    glow:'rgba(140,130,200,.55)',
-    turb:0.18, pulse:0.50, rippleSpd:3.2,
-    c1:[0.58,0.52,0.88],c2:[0.44,0.38,0.80],c3:[0.88,0.85,0.97],
-    vibe:['You carry depth that reveals itself slowly — only to those who stay.','People remember you as someone who said less and meant more. Your presence itself was a kind of eloquence.'],
-    traits:['Reserved','Perennial','Considered','Grounded']
+    name:'The Radiant',
+    glow:'rgba(247,195,100,.5)',
+    col:['#FDFF9E','#F7C364','#E89020'],
+    wMin:7,wMax:10,sMin:6,sMax:10,
+    desc:'You are the kind of person who makes a room feel like it was always supposed to have people in it. Your energy doesn\'t ask for attention \u2014 it just creates conditions where people feel more alive.'
   },
   {
-    // drifting wisps, airy swirls — like stirring morning fog
-    sc:[2,3],name:'— The Morning Mist —',
-    tag:'Soft and enveloping — felt before it is understood.',
-    glow:'rgba(130,200,195,.55)',
-    turb:0.42, pulse:0.65, rippleSpd:4.0,
-    c1:[0.38,0.82,0.74],c2:[0.22,0.70,0.64],c3:[0.84,0.96,0.90],
-    vibe:['Your presence is soft and enveloping — felt before it is understood.','People carry you the way they carry morning light: without thinking about it, until it\'s gone.'],
-    traits:['Gentle','Transient','Enveloping','Quiet']
+    name:'The Luminous',
+    glow:'rgba(255,156,220,.5)',
+    col:['#FFE0F5','#FF9CDC','#F2B397'],
+    wMin:7,wMax:10,sMin:0,sMax:5,
+    desc:'There is a certain lightness in the way people feel around you \u2014 as if something they were carrying has been gently set down.'
   },
   {
-    // steady ripples, gentle flow — like dragging a finger across still water
-    sc:[4,4],name:'— The Still Lake —',
-    tag:'Depth that cannot be seen from the surface. Calm that holds everything.',
-    glow:'rgba(120,190,200,.55)',
-    turb:0.26, pulse:0.56, rippleSpd:3.6,
-    c1:[0.22,0.80,0.84],c2:[0.10,0.66,0.76],c3:[0.78,0.97,0.96],
-    vibe:['Balanced between warmth and reserve, you hold complexity with calm.','People feel steady around you — as if your presence confirms that things will be all right.'],
-    traits:['Balanced','Still','Reflective','Spacious']
+    name:'The Rooted',
+    glow:'rgba(112,160,134,.5)',
+    col:['#D5F1B9','#9CC890','#70A086'],
+    wMin:4,wMax:6,sMin:6,sMax:10,
+    desc:'You are someone people feel certain about. Not loud, not performing \u2014 just reliably, unmistakably present.'
   },
   {
-    // warm flowing light, energetic — like moving through golden light rays
-    sc:[5,6],name:'— The Golden Hour —',
-    tag:'The kind of warmth that makes ordinary moments feel worth keeping.',
-    glow:'rgba(220,200,100,.55)',
-    turb:0.62, pulse:0.92, rippleSpd:5.5,
-    c1:[0.96,0.80,0.32],c2:[0.90,0.66,0.18],c3:[0.99,0.96,0.74],
-    vibe:['You are most yourself at the meeting point of things — where warmth spills into something lasting.','People remember the specific quality you brought to ordinary moments. You made things feel significant.'],
-    traits:['Warm','Luminous','Lingering','Generous']
+    name:'The Transient',
+    glow:'rgba(111,150,177,.5)',
+    col:['#E0FAFA','#A9EEEE','#6F96B1'],
+    wMin:4,wMax:6,sMin:0,sMax:5,
+    desc:'You leave things better than you found them \u2014 a conversation, a season, a new way of seeing.'
   },
   {
-    // fast turbulent tongues, active — like a plasma globe
-    sc:[7,8],name:'— The Open Flame —',
-    tag:'Generous, alive, impossible to ignore — you fill every room you enter.',
-    glow:'rgba(220,140,120,.55)',
-    turb:0.88, pulse:1.38, rippleSpd:7.0,
-    c1:[0.96,0.52,0.38],c2:[0.88,0.38,0.28],c3:[0.99,0.86,0.78],
-    vibe:['Your energy is warm and generous — felt by everyone who enters the room.','People gravitate toward you the way they gravitate toward warmth. You give freely, and the people around you feel it.'],
-    traits:['Radiant','Social','Expressive','Alive']
+    name:'The Tranquil',
+    glow:'rgba(134,141,222,.5)',
+    col:['#EAF4FF','#AEDBF3','#868DDE'],
+    wMin:0,wMax:3,sMin:6,sMax:10,
+    desc:'You are a natural sanctuary. People feel calmer near you, not by effort, but because your stillness is contagious.'
+  },
+  {
+    name:'The Ethereal',
+    glow:'rgba(180,180,180,.42)',
+    col:['#FFFFFF','#E0E0E0','#7A7A7A'],
+    wMin:0,wMax:3,sMin:0,sMax:5,
+    desc:'You exist at a frequency others feel but cannot explain. You are a rare kind of aliveness.'
   }
 ];
 
-let cur=0,warmScore=0,t0=0,glAnim=null,currentProfile=null;
-let auraPointer={x:0,y:0,tx:0,ty:0,vx:0,vy:0};
-
-// All result elements in reveal order
-const REVEAL_IDS=['rEy','auraCanvas','rName','rTag','rCard','rBridge','rBtns','rRestart'];
-const REVEAL_CLS=['r-reveal-0','aura-enter','r-reveal-1','r-reveal-2','r-reveal-3','r-reveal-4','r-reveal-5','r-reveal-6'];
+let cur=0, W=0, S=0, t0=0, auraAnim=null, currentProfile=null;
 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -675,52 +387,84 @@ function show(id){
 }
 
 function getProfile(){
-  for(const p of PROFILES) if(warmScore>=p.sc[0] && warmScore<=p.sc[1]) return p;
-  return PROFILES[4];
+  for(const p of PROFILES){
+    if(W>=p.wMin && W<=p.wMax && S>=p.sMin && S<=p.sMax) return p;
+  }
+  return PROFILES[5];
+}
+
+function hexToRgb(h){
+  return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+}
+
+function lerpHex(h1,h2,t){
+  const [r1,g1,b1]=hexToRgb(h1),[r2,g2,b2]=hexToRgb(h2);
+  return[Math.round(r1+(r2-r1)*t),Math.round(g1+(g2-g1)*t),Math.round(b1+(b2-b1)*t)];
+}
+
+function noise3D(x,y,z){
+  const n1=Math.sin(x*1.7+y*2.3+z*1.1);
+  const n2=Math.sin(x*3.1-y*1.4+z*2.7+1.5);
+  const n3=Math.sin(x*0.9+y*3.7-z*1.8+3.1);
+  const n4=Math.sin((x-y)*2.4+z*3.8+2.3);
+  return 0.5+n1*0.22+n2*0.16+n3*0.09+n4*0.03;
 }
 
 function startGame(){
-  if(glAnim){cancelAnimationFrame(glAnim);glAnim=null;}
-  cur=0;warmScore=0;t0=Date.now();
-  auraPointer={x:0,y:0,tx:0,ty:0,vx:0,vy:0};
+  if(auraAnim){cancelAnimationFrame(auraAnim);auraAnim=null;}
+  cur=0;W=0;S=0;t0=Date.now();
 
-  // Clear reveal classes so animation re-fires next result
-  REVEAL_IDS.forEach((id,i)=>{
+  for(let i=0;i<4;i++){
+    const s=document.getElementById('gs'+i);
+    if(s){
+        s.className='gp-seg';
+        s.style.setProperty('--fill','0%');
+    }
+  }
+
+  ['rEy','auraCanvas','rName','rDesc'].forEach((id)=>{
     const el=document.getElementById(id);
-    if(el) el.classList.remove(REVEAL_CLS[i]);
+    if(el){el.classList.remove('rv0','rv1','rv2','rv3','rv4');void el.offsetWidth;}
   });
 
-  const pg=document.getElementById('prog');
-  pg.innerHTML='';
-  CARDS.forEach((_,i)=>{
-    const d=document.createElement('div');
-    d.className='dot';d.id='d'+i;
-    pg.appendChild(d);
-  });
-  show('game');render(0);
+  show('game');
+  render(0);
 }
 
-function updateBlob(i){
-  const ph=CARDS[i].ph;
-  document.getElementById('blob').style.background=PHASE_BG[ph];
-  document.getElementById('blobLbl').textContent='Duo.ora';
-  document.getElementById('blobFill').style.height=(i/CARDS.length*100)+'%';
+function updateProgress(i){
+  const ph=Math.floor(i/5);
+  const within=i-(ph*5);
+  for(let idx=0;idx<4;idx++){
+    const seg=document.getElementById('gs'+idx);
+    if(!seg) continue;
+    if(idx<ph){
+      seg.className='gp-seg done';
+    }else if(idx===ph){
+      seg.className='gp-seg';
+      seg.style.setProperty('--fill',(within/5*100)+'%');
+    }else{
+      seg.className='gp-seg';
+      seg.style.setProperty('--fill','0%');
+    }
+  }
 }
 
 function render(i){
-  updateBlob(i);
+  updateProgress(i);
   const c=CARDS[i];
   const row=document.getElementById('cardsRow');
   row.style.transition='none';row.style.opacity='1';row.innerHTML='';
 
-  [{s:c.a,w:c.wa},{s:c.b,w:c.wb}].forEach(({s,w})=>{
+  [{src:c.a,w:c.aw,s:c.as},{src:c.b,w:c.bw,s:c.bs}].forEach(({src,w,s})=>{
     const div=document.createElement('div');div.className='card';
-    const img=document.createElement('img');img.src=s;img.alt='';img.draggable=false;
+    const img=document.createElement('img');img.src=src;img.alt='';img.draggable=false;
     div.appendChild(img);
     div.addEventListener('click',()=>{
       if(div.classList.contains('chosen'))return;
-      div.classList.add('chosen');warmScore+=w;
-      document.getElementById('d'+i).classList.add('done');
+      div.classList.add('chosen');
+      W+=w;S+=s;
+      const curSeg = document.getElementById('gs'+Math.floor(i/5));
+      if(curSeg) curSeg.style.setProperty('--fill',(((i%5)+1)/5*100)+'%');
       setTimeout(advance,380);
     });
     row.appendChild(div);
@@ -733,386 +477,104 @@ function advance(){
   setTimeout(()=>{
     cur++;
     if(cur>=CARDS.length){doTransition();return;}
-    render(cur);row.style.transition='opacity .38s ease';row.style.opacity='1';
+    render(cur);
+    row.style.transition='opacity .38s ease';row.style.opacity='1';
   },300);
 }
 
 function doTransition(){
-  const p=getProfile();
-  currentProfile=p;
+  const p=getProfile();currentProfile=p;
   const orb=document.getElementById('tOrb');
-
-  const r1=Math.round(p.c3[0]*255),g1=Math.round(p.c3[1]*255),b1=Math.round(p.c3[2]*255);
-  const r2=Math.round(p.c1[0]*255),g2=Math.round(p.c1[1]*255),b2=Math.round(p.c1[2]*255);
-  const r3=Math.round(p.c2[0]*255),g3=Math.round(p.c2[1]*255),b3=Math.round(p.c2[2]*255);
-
-let t = 0;
-
-function animateTransitionAura(){
-  t += 0.02;
-
-  const x = 40 + Math.sin(t)*12;
-  const y = 35 + Math.cos(t*0.8)*10;
-
-  orb.style.background = `
-    radial-gradient(circle at ${x}% ${y}%,
-      rgb(${r1},${g1},${b1}),
-      rgb(${r2},${g2},${b2}) 55%,
-      rgb(${r3},${g3},${b3})
-    )
-  `;
-
-  if(document.getElementById('transition').classList.contains('active')){
-    requestAnimationFrame(animateTransitionAura);
-  }
-}
-
-animateTransitionAura();
-  orb.style.animation='none';orb.offsetHeight;orb.style.animation='orbPulse 9s ease forwards';
+  const [ci,cm,co]=p.col;
+  orb.style.background=`radial-gradient(circle at 42% 38%,${ci},${cm} 52%,${co})`;
+  orb.style.animation='none';void orb.offsetHeight;
+  orb.style.animation='tOrbIn 3s ease forwards';
   show('transition');
   setTimeout(()=>showResult(p),3000);
 }
 
-function profileGradient(p){
-  // Radial gradient that fades to transparent at edges — gives soft orb look
-  const c=(arr,a)=>`rgba(${Math.round(arr[0]*255)},${Math.round(arr[1]*255)},${Math.round(arr[2]*255)},${a})`;
-  return `radial-gradient(circle at 40% 38%, ${c(p.c3,1)} 0%, ${c(p.c1,.75)} 38%, ${c(p.c2,.35)} 62%, ${c(p.c2,0)} 78%)`;
-}
-
-function getBestMatches(userProfile){
-  const userCenter=(userProfile.sc[0]+userProfile.sc[1])/2;
-  return PROFILES
-    .filter(p=>p!==userProfile)
-    .sort((a,b)=>{
-      const ac=Math.abs((a.sc[0]+a.sc[1])/2-userCenter);
-      const bc=Math.abs((b.sc[0]+b.sc[1])/2-userCenter);
-      return ac-bc;
-    })
-    .slice(0,2);
-}
-
 function showResult(p){
   document.getElementById('rName').textContent=p.name;
-  document.getElementById('rTag').textContent=p.tag;
-  document.getElementById('rVibe').innerHTML=p.vibe.map(t=>`<p>${t}</p>`).join('');
+  document.getElementById('rDesc').textContent=p.desc;
 
-  // Populate best-match orbs
-  const matches=getBestMatches(p);
-  document.getElementById('rMatch').innerHTML=matches.map((m,i)=>`
-    <div class="match-item">
-      <div class="match-orb" style="background:${profileGradient(m)};animation-delay:${i*2}s"></div>
-      <div class="match-name">${m.name.replace(/—/g,'').trim()}</div>
-    </div>`).join('');
+  ['rEy','auraCanvas','rName','rDesc'].forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.classList.remove('rv0','rv1','rv2','rv3');
+    void el.offsetWidth;
+    el.classList.add('rv'+i);
+  });
+  const btns=document.querySelector('.r-btns');
+  if(btns){btns.classList.remove('rv4');void btns.offsetWidth;btns.classList.add('rv4');}
 
   show('result');
   document.getElementById('result').scrollTop=0;
+  document.getElementById('auraCanvas').style.setProperty('--glow',p.glow);
 
-  const canvas=document.getElementById('auraCanvas');
-  canvas.style.setProperty('--glow-color',p.glow);
-
-  // Canvas hover: amplify CSS glow on enter, restore pulse on leave
-  canvas.onmouseenter=()=>canvas.classList.add('aura-hovered');
-  canvas.onmouseleave=()=>{canvas.classList.remove('aura-hovered');auraPointer.tx=0;auraPointer.ty=0;};
-
-  // Trigger entrance animations: force reflow between remove→add
-  requestAnimationFrame(()=>{
-    REVEAL_IDS.forEach((id,i)=>{
-      const el=document.getElementById(id);
-      if(!el)return;
-      el.classList.remove(REVEAL_CLS[i]);
-      // stagger via nested rAF so each removal is flushed
-      void el.offsetWidth;
-      el.classList.add(REVEAL_CLS[i]);
-    });
-  });
-
-  initGlAura(p,Date.now()-t0);
+  const elapsed=Date.now()-t0;
+  initAura(p,elapsed);
 }
 
-/* ── WEBGL AURA ── */
-function initGlAura(profile,ms){
-  if(glAnim){cancelAnimationFrame(glAnim);glAnim=null;}
-
+function initAura(profile,ms){
+  if(auraAnim){cancelAnimationFrame(auraAnim);auraAnim=null;}
   const canvas=document.getElementById('auraCanvas');
-  const sz=Math.min(380,Math.round(window.innerWidth*0.72));
+  const sz=Math.min(400,Math.round(window.innerWidth*0.72));
   canvas.width=sz;canvas.height=sz;
   canvas.style.width=sz+'px';canvas.style.height=sz+'px';
-
-  const gl=canvas.getContext('webgl',{alpha:true,antialias:true,premultipliedAlpha:false});
-  if(!gl){fallbackCanvas(canvas,profile,ms);return;}
-
-  // Pointer tracking — shared for mouse + touch
-  function setPointer(clientX,clientY){
-    const r=canvas.getBoundingClientRect();
-    auraPointer.tx=((clientX-r.left)/r.width-0.5)*2.0;
-    auraPointer.ty=(0.5-(clientY-r.top)/r.height)*2.0;
-  }
-  canvas.onmousemove =e=>setPointer(e.clientX,e.clientY);
-  canvas.onmouseleave=()=>{auraPointer.tx=0;auraPointer.ty=0;};
-  canvas.ontouchmove =e=>{e.preventDefault();setPointer(e.touches[0].clientX,e.touches[0].clientY);};
-  canvas.ontouchend  =()=>{auraPointer.tx=0;auraPointer.ty=0;};
-
-  gl.clearColor(0,0,0,0);
-  gl.enable(gl.BLEND);
-  gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
-
-  const speed=ms<14000?1.0:ms<30000?0.82:ms<55000?0.68:0.55;
-  const seed=Math.random()*100.0;
-
-  const VERT=`
-attribute vec2 aPos;
-void main(){gl_Position=vec4(aPos,0.0,1.0);}`;
-
-  const FRAG=`
-precision highp float;
-uniform vec2  uRes;
-uniform float uTime;
-uniform float uSpeed;
-uniform float uSeed;
-uniform vec2  uMouse;
-uniform vec2  uMouseVel;   // smoothed pointer velocity — drives ink-drag effect
-uniform float uTurb;
-uniform float uPulse;
-uniform float uRippleSpd;
-uniform vec3  uC1;
-uniform vec3  uC2;
-uniform vec3  uC3;
-
-vec2 hash2(vec2 p){
-  p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));
-  return -1.0+2.0*fract(sin(p)*43758.5453123);
-}
-float noise(vec2 p){
-  vec2 i=floor(p);vec2 f=fract(p);
-  vec2 u=f*f*(3.0-2.0*f);
-  return mix(
-    mix(dot(hash2(i+vec2(0.0,0.0)),f-vec2(0.0,0.0)),
-        dot(hash2(i+vec2(1.0,0.0)),f-vec2(1.0,0.0)),u.x),
-    mix(dot(hash2(i+vec2(0.0,1.0)),f-vec2(0.0,1.0)),
-        dot(hash2(i+vec2(1.0,1.0)),f-vec2(1.0,1.0)),u.x),u.y);
-}
-float fbm(vec2 p){
-  float v=0.0,a=0.5;
-  for(int i=0;i<6;i++){v+=a*noise(p);p=p*2.02+vec2(12.4,7.9);a*=0.5;}
-  return v;
-}
-
-void main(){
-  vec2 uv=(gl_FragCoord.xy/uRes)*2.0-1.0;
-
-/* slow rotation (subtle aura movement) */
-float angle = uTime * 0.2;
-mat2 rot = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-uv = rot * uv;
-float r = length(uv);
-
-/* single smooth distortion (clean blob shape) */
-float shape = fbm(uv*1.4 + vec2(uTime*0.25, -uTime*0.2));
-r += (shape - 0.5) * 0.10;
-
-  // Soft cloud edge — fades out gradually like a real aura
-float body = 1.0 - smoothstep(0.60, 1.15, r);
-  if(body<=0.001) discard;
-
-float t=uTime*(0.55*uSpeed)+uSeed*0.31;
-
-  // ── CURSOR / TOUCH ──
-  float mLen=length(uMouse);
-  float mInside=smoothstep(1.20,0.35,mLen);       // 1 when cursor is on the orb
-  float mDist=length(uv-uMouse);
-  float velMag=length(uMouseVel);
-
-  // 1. VORTEX SWIRL: rotate UV space around cursor — feels like stirring liquid.
-  //    Angle grows with proximity and clamps so it doesn't over-spin.
-  float vortexAngle=mInside*clamp(1.9*exp(-mDist*1.8),0.0,1.55);
-  float ca=cos(vortexAngle), sa=sin(vortexAngle);
-  vec2 rel=uv-uMouse;
-  vec2 uvSwirl=uMouse+vec2(ca*rel.x-sa*rel.y, sa*rel.x+ca*rel.y);
-
-  // 2. INK DRAG: stretch texture in the direction you're moving,
-  //    proportional to speed. Scales up at the cursor and falls off quickly.
-  vec2 uvFinal=uvSwirl + uMouseVel*14.0*exp(-mDist*2.4)*mInside;
-
-  // ── 2-LEVEL DOMAIN WARPING ──
-  float ws=0.50+uTurb*1.65;
-  vec2 p=uvFinal;
-
-  vec2 q=vec2(
-    fbm(p*1.75+vec2( t*0.40, t*0.18)),
-    fbm(p*1.75+vec2(-t*0.32, t*0.38)+vec2(5.2,1.3))
-  );
-  vec2 rr=vec2(
-    fbm(p*1.20+ws*q+vec2( t*0.24,-t*0.13)),
-    fbm(p*1.20+ws*q+vec2(-t*0.17, t*0.22)+vec2(1.7,9.2))
-  );
-  float flow=fbm(p*0.85+ws*0.60*rr)*0.5+0.5;
-
-  // ── BREATHING PULSE ──
-  float breathe=0.5+0.5*sin(t*uPulse*1.1+uSeed*0.7);
-  float pulse=0.92+0.11*breathe;
-
-  // ── WISPS ──
-  float wisp=fbm(p*5.5+vec2(t*1.1,-t*0.65));
-  wisp=smoothstep(0.34,0.62,wisp)*(0.12+0.24*uTurb);
-  // Extra wisps erupt near cursor when you hover
-  wisp+=smoothstep(0.42,0.0,mDist)*mInside*0.28;
-
-  // ── GLOW LAYERS ──
-  // Bright luminous core — hot centre that breathes
-  float innerGlow=(1.0-smoothstep(0.0,0.66,r))*(0.62+0.38*breathe);
-  // Subtle additive rim — purely brightens, never darkens
-  float rim=exp(-pow((r-0.66)/0.18,2.0))*0.28;
-
-  // ── CURSOR EFFECTS ──
-  float ripple=sin(mDist*17.0-t*uRippleSpd)*exp(-mDist*4.0)*mInside*0.20;
-  float cGlow =exp(-mDist*1.8)*mInside*0.70;   // wide glow pool
-  float cHot  =exp(-mDist*mDist*14.0)*mInside*0.50; // tight hot-spot
-  float hoverLift=1.0+mInside*0.30;            // whole orb brightens on hover
-
-  // ── COLOR COMPOSITION — no dark edges ──
-  vec3 col=mix(uC2,uC1,smoothstep(0.10,0.88,flow));
-  col=mix(col,uC3,innerGlow*0.55);             // luminous core
-  col=mix(col,uC3*1.06,wisp);                  // bright wisps
-  col+=uC1*rim*0.60;                           // additive rim glow
-  col*=pulse*(0.90+0.14*flow);                 // breathing
-  col*=hoverLift;                              // hover ambient boost
-  col=mix(col,uC3*1.18,cGlow*0.52);           // cursor pool
-  col+=uC3*cHot*0.38;                         // cursor hot-spot
-  col+=uC1*max(0.0,ripple);                   // ripple rings
-
-  // NO edge darkening — alpha soft-clip handles the fade
-
-float alpha = body * 0.9;
-  gl_FragColor=vec4(clamp(col,0.0,1.0),clamp(alpha,0.0,1.0));
-}`;
-
-  function mkShader(type,src){
-    const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;
-  }
-  const prog=gl.createProgram();
-  gl.attachShader(prog,mkShader(gl.VERTEX_SHADER,VERT));
-  gl.attachShader(prog,mkShader(gl.FRAGMENT_SHADER,FRAG));
-  gl.linkProgram(prog);gl.useProgram(prog);
-
-  const buf=gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
-  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
-  const loc=gl.getAttribLocation(prog,'aPos');
-  gl.enableVertexAttribArray(loc);
-  gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
-
-  const uRes       =gl.getUniformLocation(prog,'uRes');
-  const uTime      =gl.getUniformLocation(prog,'uTime');
-  const uSp        =gl.getUniformLocation(prog,'uSpeed');
-  const uSd        =gl.getUniformLocation(prog,'uSeed');
-  const uMouse     =gl.getUniformLocation(prog,'uMouse');
-  const uMouseVel  =gl.getUniformLocation(prog,'uMouseVel');
-  const uTurb      =gl.getUniformLocation(prog,'uTurb');
-  const uPulse     =gl.getUniformLocation(prog,'uPulse');
-  const uRippleSpd =gl.getUniformLocation(prog,'uRippleSpd');
-  const uC1        =gl.getUniformLocation(prog,'uC1');
-  const uC2        =gl.getUniformLocation(prog,'uC2');
-  const uC3        =gl.getUniformLocation(prog,'uC3');
-
-  gl.uniform2f(uRes,sz,sz);
-  gl.uniform1f(uSp,speed);
-  gl.uniform1f(uSd,seed);
-  gl.uniform1f(uTurb,profile.turb);
-  gl.uniform1f(uPulse,profile.pulse);
-  gl.uniform1f(uRippleSpd,profile.rippleSpd);
-  gl.uniform3fv(uC1,new Float32Array(profile.c1));
-  gl.uniform3fv(uC2,new Float32Array(profile.c2));
-  gl.uniform3fv(uC3,new Float32Array(profile.c3));
-
-  const start=performance.now();
-
-  function loop(){
-    const t=(performance.now()-start)*0.001;
-
-    const prevX=auraPointer.x, prevY=auraPointer.y;
-    auraPointer.x+=(auraPointer.tx-auraPointer.x)*0.07;
-    auraPointer.y+=(auraPointer.ty-auraPointer.y)*0.07;
-    // Smooth velocity — used for ink-drag effect
-    const rawVx=auraPointer.x-prevX, rawVy=auraPointer.y-prevY;
-    auraPointer.vx=auraPointer.vx*0.72+rawVx*0.28;
-    auraPointer.vy=auraPointer.vy*0.72+rawVy*0.28;
-
-    gl.viewport(0,0,sz,sz);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.uniform1f(uTime,t);
-    gl.uniform2f(uMouse,auraPointer.x,auraPointer.y);
-    gl.uniform2f(uMouseVel,auraPointer.vx,auraPointer.vy);
-    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
-
-    glAnim=requestAnimationFrame(loop);
-  }
-  loop();
-}
-
-function fallbackCanvas(canvas,profile,ms){
   const ctx=canvas.getContext('2d');
-  const sz=canvas.width;
-  const cx=sz/2,cy=sz/2;
-  const start=performance.now();
 
-  function setPointer(clientX,clientY){
-    const r=canvas.getBoundingClientRect();
-    auraPointer.tx=((clientX-r.left)/r.width-0.5)*2.0;
-    auraPointer.ty=(0.5-(clientY-r.top)/r.height)*2.0;
-  }
-  canvas.onmousemove =e=>setPointer(e.clientX,e.clientY);
-  canvas.onmouseleave=()=>{auraPointer.tx=0;auraPointer.ty=0;};
-  canvas.ontouchmove =e=>{e.preventDefault();setPointer(e.touches[0].clientX,e.touches[0].clientY);};
-  canvas.ontouchend  =()=>{auraPointer.tx=0;auraPointer.ty=0;};
+  const speedMult = ms<25000?1.35:ms<65000?1.0:0.68;
+  const seed = Math.random()*100;
+  const radiusFactor = 0.38 + Math.random()*0.05;
+  const maxR = sz * radiusFactor;
 
-  const c1=`rgb(${Math.round(profile.c3[0]*255)},${Math.round(profile.c3[1]*255)},${Math.round(profile.c3[2]*255)})`;
-  const c2=`rgb(${Math.round(profile.c1[0]*255)},${Math.round(profile.c1[1]*255)},${Math.round(profile.c1[2]*255)})`;
-  const c3=`rgb(${Math.round(profile.c2[0]*255)},${Math.round(profile.c2[1]*255)},${Math.round(profile.c2[2]*255)})`;
+  ctx.clearRect(0,0,sz,sz);
+  let t=0;
+  const colors=profile.col;
 
-  function draw(now){
+  function frame(){
     ctx.clearRect(0,0,sz,sz);
-    auraPointer.x+=(auraPointer.tx-auraPointer.x)*0.07;
-    auraPointer.y+=(auraPointer.ty-auraPointer.y)*0.07;
-
-    const t=(now-start)*0.001;
-    const breathe=0.5+0.5*Math.sin(t*profile.pulse*1.1);
-    // drift + pointer offset
-    const offX=Math.sin(t*(0.5+profile.turb*0.4))*sz*0.06 + auraPointer.x*sz*0.12;
-    const offY=Math.cos(t*(0.4+profile.turb*0.3))*sz*0.05 + (-auraPointer.y)*sz*0.12;
-    const baseR=sz*0.46;
-    const pulseR=baseR*(0.96+0.06*breathe);
-
     ctx.save();
-    ctx.beginPath();ctx.arc(cx,cy,pulseR,0,Math.PI*2);ctx.clip();
-
-    const g=ctx.createRadialGradient(cx+offX,cy+offY,sz*0.03,cx,cy,pulseR);
-    g.addColorStop(0,c1);g.addColorStop(0.4,c2);g.addColorStop(1,c3);
-    ctx.fillStyle=g;ctx.fillRect(0,0,sz,sz);
-
-    // cursor glow overlay
-    const mLen=Math.sqrt(auraPointer.x*auraPointer.x+auraPointer.y*auraPointer.y);
-    if(mLen<1.1){
-      const mx=cx+auraPointer.x*sz*0.5;
-      const my=cy-auraPointer.y*sz*0.5;
-      const gm=ctx.createRadialGradient(mx,my,0,mx,my,sz*0.25);
-      gm.addColorStop(0,`rgba(${Math.round(profile.c3[0]*255)},${Math.round(profile.c3[1]*255)},${Math.round(profile.c3[2]*255)},0.45)`);
-      gm.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=gm;ctx.fillRect(0,0,sz,sz);
+    ctx.translate(sz/2,sz/2);
+    ctx.rotate(t*0.06*speedMult);
+    const step=maxR/58;
+    for(let r=maxR;r>0;r-=step){
+      const colorPos=(r/maxR)*(colors.length-1);
+      const ci=Math.max(0,Math.min(colors.length-2,Math.floor(colorPos)));
+      const lerp=colorPos-ci;
+      const [rr,gg,bb]=lerpHex(colors[ci],colors[ci+1],lerp);
+      const alphaFade=1-r/maxR;
+      const alpha=Math.pow(alphaFade,1.5)*(180/255);
+      if(alpha<0.004)continue;
+      ctx.fillStyle=`rgba(${rr},${gg},${bb},${alpha.toFixed(3)})`;
+      ctx.beginPath();
+      const steps=110;
+      for(let i=0;i<=steps;i++){
+        const a=(i/steps)*Math.PI*2;
+        const noiseVal=noise3D(Math.cos(a)*0.7,Math.sin(a)*0.7,t*0.5*speedMult + r*0.005 + seed);
+        const swirl=(noiseVal-0.5)*0.14;
+        const waveStrength=4+(r/maxR)*28;
+        const offset=(noiseVal-0.5)*2*waveStrength;
+        const x=(r+offset)*Math.cos(a+swirl);
+        const y=(r+offset)*Math.sin(a+swirl);
+        i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.closePath();
+      ctx.fill();
     }
     ctx.restore();
-
-    glAnim=requestAnimationFrame(draw);
+    t+=0.018;
+    auraAnim=requestAnimationFrame(frame);
   }
-  glAnim=requestAnimationFrame(draw);
+  auraAnim=requestAnimationFrame(frame);
 }
 
 function shareAura(){
   const p=currentProfile||getProfile();
-  const n=p.name.replace(/—/g,'').trim();
-  const txt=`I discovered my aura — ${n} — through Duoora. Try it at duoora.com`;
+  const txt=`I discovered my aura — ${p.name} — through Duoora.`;
   if(navigator.share)navigator.share({title:'My Duoora Aura',text:txt});
-  else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>alert('Copied!'));
-  else prompt('Copy:',txt);
+  else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>alert('Copied to clipboard!'));
+  else prompt('Copy this:',txt);
 }
 </script>
 </body>
