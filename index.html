@@ -272,8 +272,8 @@ html,body{width:100%;height:100%;background:#F4F0E6;overflow:hidden;}
 
 <div id="intro" class="screen active">
   <h1 class="intro-logo">Du<span class="oo">o·o</span>ra</h1>
-  <p class="intro-problem">Sometimes we don't have the words<br>to express what we really want.</p>
-  <p class="intro-sub">Two images. No words needed.<br>Follow your instinct.</p>
+  <p class="intro-problem">How will you be remembered?</p>
+  <p class="intro-sub">Twenty pairs. Two images. Discover your aura.<br>Follow your instinct.</p>
   <button class="btn-begin" onclick="startGame()">Begin</button>
 </div>
 
@@ -340,42 +340,42 @@ const PROFILES = [
     glow:'rgba(247,195,100,.5)',
     col:['#FDFF9E','#F7C364','#E89020'],
     wMin:7,wMax:10,sMin:6,sMax:10,
-    desc:'You are the kind of person who makes a room feel like it was always supposed to have people in it. Your energy doesn\'t ask for attention \u2014 it just creates conditions where people feel more alive.'
+    desc:'You are the kind of person who makes a room feel as though it was always meant to be shared. Your presence does not ask for attention; it quietly creates a space where people feel more alive, more at ease, more like themselves. There is a warmth in you that is difficult to put into words, something people recognize more than they can explain. People will remember you in rooms and the ones who love you will tell others about how it felt to be near you.'
   },
   {
     name:'The Luminous',
     glow:'rgba(255,156,220,.5)',
     col:['#FFE0F5','#FF9CDC','#F2B397'],
     wMin:7,wMax:10,sMin:0,sMax:5,
-    desc:'There is a certain lightness in the way people feel around you \u2014 as if something they were carrying has been gently set down.'
+    desc:'There is a lightness in how people feel around you, as if something they were carrying has quietly been set down. You make things feel possible. You see people in a way that invites them to be seen, without pressure or performance. They remember you with a kind of warmth that lingers, a gentle ache that comes from something beautiful that passed through their lives and left them changed.'
   },
   {
     name:'The Rooted',
     glow:'rgba(112,160,134,.5)',
     col:['#D5F1B9','#9CC890','#70A086'],
     wMin:4,wMax:6,sMin:6,sMax:10,
-    desc:'You are someone people feel certain about. Not loud, not performing \u2014 just reliably, unmistakably present.'
+    desc:'You are someone people feel certain about. Not loud or performative, just quietly and unmistakably present. In a world that often feels uncertain, you bring a sense of steadiness that others can lean into. Around you, things begin to settle. To be loved by you is to feel grounded, as if the ground beneath has finally turned solid. It is a kind of reassurance that is rare, and more than most people ever offer.'
   },
   {
     name:'The Transient',
     glow:'rgba(111,150,177,.5)',
     col:['#E0FAFA','#A9EEEE','#6F96B1'],
     wMin:4,wMax:6,sMin:0,sMax:5,
-    desc:'You leave things better than you found them \u2014 a conversation, a season, a new way of seeing.'
+    desc:'You leave things better than you found them. A conversation feels softer, a season more meaningful, a new way of seeing things because you were there. Your presence lingers in quiet, unexpected ways. People remember you in a song, in the warmth of the afternoon sun, in the feeling of something gentle that stayed with them. You are the grace of a moment that does not fade, something brief yet deeply felt and impossible to forget.'
   },
   {
     name:'The Tranquil',
     glow:'rgba(134,141,222,.5)',
     col:['#EAF4FF','#AEDBF3','#868DDE'],
     wMin:0,wMax:3,sMin:6,sMax:10,
-    desc:'You are a natural sanctuary. People feel calmer near you, not by effort, but because your stillness is contagious.'
+    desc:'You are a kind of sanctuary people can return to. Around you, they feel calmer, not because you try to change anything, but because your stillness gently settles what feels unsettled. You do not offer quick fixes; you offer something steadier, a presence that holds even when everything else feels noisy. Long after you leave, that feeling stays with them, something quiet and grounding they can return to when the world begins to move too fast.'
   },
   {
     name:'The Ethereal',
     glow:'rgba(180,180,180,.42)',
     col:['#FFFFFF','#E0E0E0','#7A7A7A'],
     wMin:0,wMax:3,sMin:0,sMax:5,
-    desc:'You exist at a frequency others feel but cannot explain. You are a rare kind of aliveness.'
+    desc:'You exist in a way others can feel but cannot fully explain. There is a rare kind of aliveness in you, as if you are more awake to the world than most. Your presence defies description, yet it leaves something behind. You leave people with a silver trace, a quiet impression they return to, still trying to grasp an essence that remains just out of reach.'
   }
 ];
 
@@ -576,6 +576,19 @@ function shareAura(){
   else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>alert('Copied to clipboard!'));
   else prompt('Copy this:',txt);
 }
+
+// PRELOAD IMAGES:
+function preloadImages() {
+  CARDS.forEach(card => {
+    const imgA = new Image();
+    imgA.src = card.a;
+    const imgB = new Image();
+    imgB.src = card.b;
+  });
+}
+preloadImages();
+// END OF NEW CODE
+  
 </script>
 </body>
 </html>
