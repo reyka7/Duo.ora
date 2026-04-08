@@ -53,7 +53,7 @@ html,body{width:100%;height:100%;background:#F4F0E6;overflow:hidden;}
   margin-bottom:52px;max-width:480px;
 }
 .btn-begin{
-  font-family:'Inria Sans',sans-serif;
+  font-family:'Inria Serif',serif;
   font-size:17px;font-weight:400;letter-spacing:.06em;
   color:white;background:rgba(112,116,166,.9);
   border:none;border-radius:50px;
@@ -124,21 +124,30 @@ html,body{width:100%;height:100%;background:#F4F0E6;overflow:hidden;}
 
 /* ── CARDS ── */
 .cards-row{
-  display:flex;
-  align-items:center;justify-content:center;
-  gap:clamp(20px,3vw,52px);
-  width:100%;max-width:960px;
-  flex:0 1 auto;
-  padding:0 24px;
-  margin-top:clamp(86px,12vh,108px);
+display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Use a smaller gap on mobile, larger on desktop */
+  gap: clamp(12px, 4vw, 52px); 
+  width: 100%;
+  max-width: 960px;
+  flex: 0 1 auto;
+  /* Padding ensures cards never touch the very edge of the screen */
+  padding: 0 16px; 
+  margin-top: clamp(80px, 10vh, 108px);
 }
 .card{
-  width:clamp(200px,21vw,280px);
-  aspect-ratio:600/978;height:auto;
-  border-radius:16px;overflow:hidden;cursor:pointer;flex:0 0 auto;
-  border:3px solid rgba(255,255,255,.95);
-  box-shadow:0 3px 10px rgba(70,52,34,.07),0 7px 26px rgba(70,52,34,.07),0 14px 40px rgba(70,52,34,.05);
-  transition:transform .22s ease,box-shadow .22s ease,border-color .16s;
+/* This is the magic line: it tries to be 280px but never exceeds 45% of the screen */
+  width: min(280px, 45vw); 
+  aspect-ratio: 600/978;
+  height: auto;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  flex: 0 1 auto; /* Changed to flex-shrink: 1 so they can get smaller */
+  border: 3px solid rgba(255,255,255,.95);
+  box-shadow: 0 3px 10px rgba(70,52,34,.07), 0 7px 26px rgba(70,52,34,.07), 0 14px 40px rgba(70,52,34,.05);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .16s;
 }
 .card:hover{
   transform:translateY(-12px);
@@ -237,7 +246,7 @@ html,body{width:100%;height:100%;background:#F4F0E6;overflow:hidden;}
 }
 .r-btns{display:flex;flex-direction:column;align-items:center;gap:14px;}
 .btn-share{
-  font-family:'Inria Sans',sans-serif;
+  font-family:'Inria Serif',serif;
   font-size:16px;color:white;
   background:#8088B0;border:none;
   border-radius:50px;padding:15px 52px;
@@ -247,7 +256,7 @@ html,body{width:100%;height:100%;background:#F4F0E6;overflow:hidden;}
 .btn-share:hover{opacity:.82;transform:translateY(-2px);}
 .btn-share:active{transform:scale(.97);}
 .btn-restart{
-  font-family:'Inria Sans',sans-serif;
+  font-family:'Inria Serif',serif;
   font-size:14px;color:#9A8E7A;
   background:transparent;border:none;
   cursor:pointer;letter-spacing:.04em;
@@ -273,7 +282,7 @@ html,body{width:100%;height:100%;background:#F4F0E6;overflow:hidden;}
 <div id="intro" class="screen active">
   <h1 class="intro-logo">Du<span class="oo">o·o</span>ra</h1>
   <p class="intro-problem">How will you be remembered?</p>
-  <p class="intro-sub">Twenty pairs. Two images. Discover your aura.<br>Follow your instinct.</p>
+  <p class="intro-sub">Twenty pairs. Two images. Discover your aura.<br></p>
   <button class="btn-begin" onclick="startGame()">Begin</button>
 </div>
 
