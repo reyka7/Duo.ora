@@ -149,13 +149,31 @@ display: flex;
   box-shadow: 0 3px 10px rgba(70,52,34,.07), 0 7px 26px rgba(70,52,34,.07), 0 14px 40px rgba(70,52,34,.05);
   transition: transform .22s ease, box-shadow .22s ease, border-color .16s;
 }
-.card:hover{
-  transform:translateY(-12px);
-  box-shadow:0 8px 22px rgba(70,52,34,.1),0 16px 48px rgba(70,52,34,.12),0 26px 60px rgba(70,52,34,.07);
+  
+/* Hover lift only on devices that actually have hover, like laptops */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 8px 22px rgba(70,52,34,.1),0 16px 48px rgba(70,52,34,.12),0 26px 60px rgba(70,52,34,.07);
+  }
+
+  .card.chosen{
+    transform:translateY(-12px) scale(1.022);
+    border-color:rgba(140,146,200,.82);
+  }
 }
-.card.chosen{
-  transform:translateY(-12px) scale(1.022);
-  border-color:rgba(140,146,200,.82);
+
+/* Touch devices: keep cards level */
+@media (hover: none), (pointer: coarse) {
+  .card:hover{
+    transform:none;
+    box-shadow:0 3px 10px rgba(70,52,34,.07), 0 7px 26px rgba(70,52,34,.07), 0 14px 40px rgba(70,52,34,.05);
+  }
+
+  .card.chosen{
+    transform:none;
+    border-color:rgba(140,146,200,.82);
+  }
 }
 .card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
 
@@ -243,6 +261,13 @@ display: flex;
   color:#4A3E32;line-height:2.05;
   font-weight:300;text-align:center;
   max-width:600px;margin:0 auto 40px;
+}
+  /* paragraph spacing inside description */
+.r-desc p{
+  margin: 0 0 18px;
+}
+.r-desc p:last-child{
+  margin-bottom: 0;
 }
 .r-btns{display:flex;flex-direction:column;align-items:center;gap:14px;}
 .btn-share{
@@ -504,7 +529,7 @@ function doTransition(){
 
 function showResult(p){
   document.getElementById('rName').textContent=p.name;
-  document.getElementById('rDesc').textContent=p.desc;
+  document.getElementById('rDesc').innerHTML = p.desc;
 
   ['rEy','auraCanvas','rName','rDesc'].forEach((id,i)=>{
     const el=document.getElementById(id);
