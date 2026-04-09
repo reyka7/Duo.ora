@@ -163,16 +163,20 @@ display: flex;
   }
 }
 
-/* Touch devices: keep cards level */
+/* Touch devices: cards animation */
 @media (hover: none), (pointer: coarse) {
+
+  /* Disable weird sticky hover on phones */
   .card:hover{
     transform:none;
     box-shadow:0 3px 10px rgba(70,52,34,.07), 0 7px 26px rgba(70,52,34,.07), 0 14px 40px rgba(70,52,34,.05);
   }
 
+  /* Only lift WHEN tapped (chosen) */
   .card.chosen{
-    transform:none;
+    transform:translateY(-12px) scale(1.022);
     border-color:rgba(140,146,200,.82);
+    box-shadow:0 8px 22px rgba(70,52,34,.1),0 16px 48px rgba(70,52,34,.12),0 26px 60px rgba(70,52,34,.07);
   }
 }
 .card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
@@ -374,7 +378,7 @@ const PROFILES = [
     glow:'rgba(247,195,100,.5)',
     col:['#FDFF9E','#F7C364','#E89020'],
     wMin:7,wMax:10,sMin:6,sMax:10,
-    desc:'You are the kind of person who makes a room feel as though it was always meant to be shared. Your presence does not ask for attention; it quietly creates a space where people feel more alive, more at ease, more like themselves. There is a warmth in you that is difficult to put into words, something people recognize more than they can explain.<br>People will remember you in rooms and the ones who love you will tell others about how it felt to be near you.'
+    desc:'You are the kind of person who makes a room feel as though it was always meant to be shared. Your presence does not ask for attention; it quietly creates a space where people feel more alive, more at ease, more like themselves.<br>There is a warmth in you that is difficult to put into words, something people recognize more than they can explain.<br>People will remember you in rooms and the ones who love you will tell others about how it felt to be near you.'
   },
   {
     name:'The Luminous',
