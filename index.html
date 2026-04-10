@@ -674,7 +674,7 @@ ctx.globalAlpha = 1;
   ctx.fillText(gameUrl, 540, 1000);
 ctx.fillText('duoora', 540, 1100);
 
-const shareText = `This is my Aura — ${p.name}. Play to find your aura: ${gameUrl}`;
+const shareText = `This is my Aura — ${p.name}. Play to find your aura.`;
 
   try {
     const blob = await new Promise(resolve => shareCanvas.toBlob(resolve, 'image/png'));
