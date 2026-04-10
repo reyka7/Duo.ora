@@ -607,14 +607,80 @@ function initAura(profile,ms){
   auraAnim=requestAnimationFrame(frame);
 }
 
-function shareAura(){
-  const p=currentProfile||getProfile();
-  const txt=`I discovered my aura — ${p.name} — through Duoora.`;
-  if(navigator.share)navigator.share({title:'My Duoora Aura',text:txt});
-  else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>alert('Copied to clipboard!'));
-  else prompt('Copy this:',txt);
-}
+async function shareAura(){
+  const p = currentProfile || getProfile();
 
+  // make a temporary share card
+  const shareCanvas = document.createElement('canvas');
+  shareCanvas.width = 1080;
+  shareCanvas.height = 1920;
+  const ctx = shareCanvas.getContext('2d');
+
+  // background
+  ctx.fillStyle = '#F4F0E6';
+  ctx.fillRect(0, 0, shareCanvas.width, shareCanvas.height);
+
+  // soft aura glow behind
+  const glow = ctx.createRadialGradient(540, 620, 80, 540, 620, 300);
+  glow.addColorStop(0, p.col[0]);
+  glow.addColorStop(0.55, p.col[1]);
+  glow.addColorStop(1, p.col[2]);
+  ctx.globalAlpha = 0.95;
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(540, 620, 250, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // draw the actual aura visual from your existing result canvas
+  const auraCanvas = document.getElementById('auraCanvas');
+  if (auraCanvas) {
+    ctx.drawImage(auraCanvas, 330, 410, 420, 420);
+  }
+
+  // text
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#5E5347';
+  ctx.font = '48px "Inria Serif", serif';
+  ctx.fillText('This is my Aura', 540, 1120);
+
+  ctx.fillStyle = '#2E2820';
+  ctx.font = '82px "Instrument Serif", serif';
+  ctx.fillText(p.name, 540, 1240);
+
+  ctx.fillStyle = '#7B6D5E';
+  ctx.font = '40px "Inria Serif", serif';
+  ctx.fillText('Play to find your aura', 540, 1430);
+
+  ctx.fillStyle = '#9A8E7A';
+  ctx.font = '30px "Inria Serif", serif';
+  ctx.fillText('duoora', 540, 1740);
+
+  const shareText = `This is my Aura — ${p.name}. Play to find your aura.`;
+
+  try {
+    const blob = await new Promise(resolve => shareCanvas.toBlob(resolve, 'image/png'));
+    const file = new File([blob], 'duoora-aura.png', { type: 'image/png' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        text: shareText
+      });
+    } else if (navigator.share) {
+      await navigator.share({
+        text: shareText
+      });
+    } else if (navigator.clipboard) {
+      await navigator.clipboard.writeText(shareText);
+      alert('Share text copied to clipboard!');
+    } else {
+      prompt('Copy this:', shareText);
+    }
+  } catch (err) {
+    console.log('Share cancelled or failed:', err);
+  }
+}
 // PRELOAD IMAGES:
 function preloadImages() {
   CARDS.forEach(card => {
