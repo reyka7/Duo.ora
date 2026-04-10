@@ -609,16 +609,33 @@ function initAura(profile,ms){
 
 async function shareAura(){
   const p = currentProfile || getProfile();
+  const gameUrl = 'https://your-link-here.com';
 
   // make a temporary share card
   const shareCanvas = document.createElement('canvas');
   shareCanvas.width = 1080;
-  shareCanvas.height = 1920;
+  shareCanvas.height = 1350;
   const ctx = shareCanvas.getContext('2d');
 
   // background
   ctx.fillStyle = '#F4F0E6';
   ctx.fillRect(0, 0, shareCanvas.width, shareCanvas.height);
+
+  // card container
+const panelX = 90;
+const panelY = 90;
+const panelW = 900;
+const panelH = 1170;
+const radius = 40;
+
+ctx.fillStyle = 'rgba(255,255,255,0.6)';
+roundRect(ctx, panelX, panelY, panelW, panelH, radius);
+ctx.fill();
+
+ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+ctx.lineWidth = 2;
+roundRect(ctx, panelX, panelY, panelW, panelH, radius);
+ctx.stroke();
 
   // soft aura glow behind
   const glow = ctx.createRadialGradient(540, 620, 80, 540, 620, 300);
@@ -635,14 +652,14 @@ async function shareAura(){
   // draw the actual aura visual from your existing result canvas
   const auraCanvas = document.getElementById('auraCanvas');
   if (auraCanvas) {
-    ctx.drawImage(auraCanvas, 330, 410, 420, 420);
+ctx.drawImage(auraCanvas, 360, 240, 360, 360);
   }
 
   // text
   ctx.textAlign = 'center';
   ctx.fillStyle = '#5E5347';
   ctx.font = '48px "Inria Serif", serif';
-  ctx.fillText('This is my Aura', 540, 1120);
+  ctx.fillText('This is my Aura', 540, 700);
 
   ctx.fillStyle = '#2E2820';
   ctx.font = '82px "Instrument Serif", serif';
@@ -654,9 +671,10 @@ async function shareAura(){
 
   ctx.fillStyle = '#9A8E7A';
   ctx.font = '30px "Inria Serif", serif';
-  ctx.fillText('duoora', 540, 1740);
+  ctx.fillText(gameUrl, 540, 1000);
+ctx.fillText('duoora', 540, 1100);
 
-  const shareText = `This is my Aura — ${p.name}. Play to find your aura.`;
+const shareText = `This is my Aura — ${p.name}. Play to find your aura: ${gameUrl}`;
 
   try {
     const blob = await new Promise(resolve => shareCanvas.toBlob(resolve, 'image/png'));
@@ -680,6 +698,19 @@ async function shareAura(){
   } catch (err) {
     console.log('Share cancelled or failed:', err);
   }
+}
+  function roundRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + width - radius, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+  ctx.lineTo(x + width, y + height - radius);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  ctx.lineTo(x + radius, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.closePath();
 }
 // PRELOAD IMAGES:
 function preloadImages() {
