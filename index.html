@@ -609,7 +609,7 @@ function initAura(profile,ms){
 
 async function shareAura(){
   const p = currentProfile || getProfile();
-  const gameUrl = 'https://your-link-here.com';
+  const gameUrl = 'https://reyka7.github.io/Duo.ora/';
 
   // make a temporary share card
   const shareCanvas = document.createElement('canvas');
@@ -637,23 +637,23 @@ ctx.lineWidth = 2;
 roundRect(ctx, panelX, panelY, panelW, panelH, radius);
 ctx.stroke();
 
-  // soft aura glow behind
-  const glow = ctx.createRadialGradient(540, 620, 80, 540, 620, 300);
-  glow.addColorStop(0, p.col[0]);
-  glow.addColorStop(0.55, p.col[1]);
-  glow.addColorStop(1, p.col[2]);
-  ctx.globalAlpha = 0.95;
-  ctx.fillStyle = glow;
-  ctx.beginPath();
-  ctx.arc(540, 620, 250, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.globalAlpha = 1;
+ // simple blurred aura visual for share card
+ctx.save();
+ctx.filter = 'blur(38px)';
 
-  // draw the actual aura visual from your existing result canvas
-  const auraCanvas = document.getElementById('auraCanvas');
-  if (auraCanvas) {
-ctx.drawImage(auraCanvas, 360, 240, 360, 360);
-  }
+const glow = ctx.createRadialGradient(540, 420, 40, 540, 420, 170);
+glow.addColorStop(0, p.col[0]);
+glow.addColorStop(0.5, p.col[1]);
+glow.addColorStop(1, p.col[2]);
+
+ctx.globalAlpha = 0.95;
+ctx.fillStyle = glow;
+ctx.beginPath();
+ctx.arc(540, 420, 135, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.restore();
+ctx.globalAlpha = 1;
 
   // text
   ctx.textAlign = 'center';
@@ -680,15 +680,18 @@ const shareText = `This is my Aura — ${p.name}. Play to find your aura: ${game
     const blob = await new Promise(resolve => shareCanvas.toBlob(resolve, 'image/png'));
     const file = new File([blob], 'duoora-aura.png', { type: 'image/png' });
 
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({
-        files: [file],
-        text: shareText
-      });
-    } else if (navigator.share) {
-      await navigator.share({
-        text: shareText
-      });
+   if (navigator.canShare && navigator.canShare({ files: [file] })) {
+  await navigator.share({
+    files: [file],
+    text: shareText,
+    url: gameUrl
+  });
+} else if (navigator.share) {
+  await navigator.share({
+    text: shareText,
+    url: gameUrl
+  });
+}
     } else if (navigator.clipboard) {
       await navigator.clipboard.writeText(shareText);
       alert('Share text copied to clipboard!');
