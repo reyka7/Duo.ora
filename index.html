@@ -293,7 +293,209 @@ display: flex;
   transition:opacity .2s;
 }
 .btn-restart:hover{opacity:.6;}
+/* ── RESULT EXTRA CTA ── */
+.result-actions{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  margin-top:6px;
+  flex-wrap:wrap;
+}
 
+.btn-acm{
+  width:74px;
+  height:64px;
+  border:none;
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 3px 10px rgba(70,52,34,.05), 0 7px 24px rgba(70,52,34,.05);
+  transition:opacity .2s, transform .18s;
+}
+
+.btn-acm img{
+  width:34px;
+  height:34px;
+  object-fit:contain;
+  display:block;
+}
+
+.btn-acm:hover{opacity:.86;transform:translateY(-2px);}
+.btn-acm:active{transform:scale(.97);}
+
+/* ── ACM PAGE ── */
+#acmPage{
+  background:
+    radial-gradient(circle at left center, rgba(243,201,197,.55) 0%, transparent 28%),
+    radial-gradient(circle at right center, rgba(210,228,241,.65) 0%, transparent 32%),
+    #F4F0E6;
+  overflow-y:auto;
+  overflow-x:hidden;
+  justify-content:flex-start;
+  padding:72px 24px 48px;
+  align-items:center;
+  -webkit-overflow-scrolling:touch;
+}
+
+.acm-wrap{
+  width:100%;
+  max-width:980px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  min-height:100%;
+}
+
+.acm-copy{
+  max-width:820px;
+  margin-top:40px;
+  margin-bottom:56px;
+  color:#4A3E32;
+}
+
+.acm-heading{
+  font-family:'Inria Serif',serif;
+  font-size:clamp(28px,3.5vw,46px);
+  line-height:1.25;
+  font-weight:400;
+  color:#4B4035;
+  text-transform:uppercase;
+  letter-spacing:.01em;
+  margin-bottom:30px;
+}
+
+.acm-body{
+  font-family:'Inria Serif',serif;
+  font-size:clamp(18px,2vw,27px);
+  line-height:1.8;
+  font-weight:300;
+  color:#5D5145;
+  max-width:860px;
+  margin:0 auto;
+}
+
+.acm-ctas{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:56px;
+  flex-wrap:wrap;
+  margin-bottom:26px;
+}
+
+.acm-btn{
+  min-width:320px;
+  min-height:92px;
+  padding:20px 38px;
+  border:none;
+  border-radius:999px;
+  font-family:'Inria Serif',serif;
+  font-size:clamp(18px,2.2vw,25px);
+  font-weight:400;
+  letter-spacing:.02em;
+  cursor:pointer;
+  transition:opacity .2s, transform .18s;
+}
+
+.acm-btn:hover{opacity:.88;transform:translateY(-2px);}
+.acm-btn:active{transform:scale(.98);}
+
+.acm-btn-primary{
+  background:#8088B0;
+  color:white;
+}
+
+.acm-btn-secondary{
+  background:rgba(255,255,255,.72);
+  color:#8088B0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+}
+
+.acm-btn-secondary img{
+  width:34px;
+  height:34px;
+  object-fit:contain;
+  display:block;
+}
+
+.acm-restart{
+  margin-bottom:170px;
+}
+
+.acm-footer{
+  margin-top:auto;
+  text-align:center;
+  color:#9A8E7A;
+  font-family:'Inria Serif',serif;
+  font-weight:300;
+}
+
+.acm-supported{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+  font-size:clamp(14px,1.4vw,18px);
+  margin-bottom:12px;
+}
+
+.acm-supported img{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  display:block;
+}
+
+.acm-supported a{
+  color:#9A8E7A;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.acm-copyline{
+  font-size:clamp(14px,1.3vw,17px);
+}
+
+@media (max-width: 700px){
+  .result-actions{
+    gap:12px;
+  }
+
+  .btn-acm{
+    width:66px;
+    height:58px;
+  }
+
+  .btn-acm img{
+    width:30px;
+    height:30px;
+  }
+
+  .acm-ctas{
+    gap:18px;
+  }
+
+  .acm-btn{
+    width:min(100%, 360px);
+    min-width:0;
+    min-height:74px;
+    font-size:22px;
+  }
+
+  .acm-restart{
+    margin-bottom:110px;
+  }
+}
+  
 @keyframes slideUp{
   from{opacity:0;transform:translateY(24px);}
   to  {opacity:1;transform:translateY(0);}
@@ -342,12 +544,49 @@ display: flex;
   <canvas id="auraCanvas" class="rv1"></canvas>
   <div id="rName" class="r-name rv2"></div>
   <div id="rDesc" class="r-desc rv3"></div>
-  <div class="r-btns rv4">
+ <div class="r-btns rv4">
+  <div class="result-actions">
     <button class="btn-share" onclick="shareAura()">Share Your Aura</button>
-    <button class="btn-restart" onclick="startGame()">&#8592; Discover again</button>
+    <button class="btn-acm" onclick="openAcmPage()" aria-label="Learn more">
+      <img src="ACM logo.jpg" alt="Ang Chin Moh Foundation logo">
+    </button>
   </div>
+  <button class="btn-restart" onclick="startGame()">&#8592; Discover again</button>
 </div>
 
+  <div id="acmPage" class="screen">
+  <div class="acm-wrap">
+    <div class="acm-copy">
+      <h2 class="acm-heading">THIS ISN'T JUST ABOUT YOUR AURA.</h2>
+      <p class="acm-body">
+        You just made twenty choices most people never stop to think about.<br>
+        How you want to be remembered. What should remain. Who should be there.<br>
+        Your aura reflects that. And there are people who can help you carry it forward.
+      </p>
+    </div>
+
+    <div class="acm-ctas">
+      <button class="acm-btn acm-btn-primary" onclick="backToProfile()">Back to My Profile</button>
+
+      <button class="acm-btn acm-btn-secondary" onclick="talkToAcm()">
+        <span>Talk to</span>
+        <img src="ACM logo.jpg" alt="Ang Chin Moh Foundation logo">
+      </button>
+    </div>
+
+    <button class="btn-restart acm-restart" onclick="startGame()">&#8592; Discover again</button>
+
+    <div class="acm-footer">
+      <div class="acm-supported">
+        <span>Supported by</span>
+        <img src="ACM logo.jpg" alt="Ang Chin Moh Foundation logo">
+        <a href="https://www.angchinmohfoundation.org/" target="_blank" rel="noopener noreferrer">Ang Chin Moh Foundation</a>
+      </div>
+      <div class="acm-copyline">© 2026 Duo·ora</div>
+    </div>
+  </div>
+</div>
+  
 <script>
 const CARDS = [
   {ph:0,a:'moon.jpg',aw:0,as:0, b:'sun.jpg',bw:1,bs:0},
@@ -552,7 +791,20 @@ function showResult(p){
   const elapsed=Date.now()-t0;
   initAura(p,elapsed);
 }
+function openAcmPage(){
+  show('acmPage');
+  document.getElementById('acmPage').scrollTop = 0;
+}
 
+function backToProfile(){
+  show('result');
+  document.getElementById('result').scrollTop = 0;
+}
+
+function talkToAcm(){
+  window.open('https://www.acmfoundation.org/', '_blank');
+}
+  
 function initAura(profile,ms){
   if(auraAnim){cancelAnimationFrame(auraAnim);auraAnim=null;}
   const canvas=document.getElementById('auraCanvas');
