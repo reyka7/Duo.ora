@@ -313,8 +313,14 @@ display: flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  box-shadow:0 3px 10px rgba(70,52,34,.05), 0 7px 24px rgba(70,52,34,.05);
-  transition:opacity .2s, transform .18s;
+  box-shadow:
+    0 3px 10px rgba(70,52,34,.05),
+    0 7px 24px rgba(70,52,34,.05),
+    0 0 0 0 rgba(128,136,176,.22);
+  transition:opacity .2s, transform .18s, box-shadow .25s ease;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
 }
 
 .btn-acm img{
@@ -324,7 +330,86 @@ display: flex;
   display:block;
 }
 
-.btn-acm:hover{opacity:.86;transform:translateY(-2px);}
+  .btn-acm::before{
+  content:'';
+  position:absolute;
+  inset:-70%;
+  background:linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 24%,
+    rgba(210,210,218,.08) 34%,
+    rgba(226,224,232,.38) 42%,
+    rgba(245,244,248,.72) 50%,
+    rgba(226,224,232,.38) 58%,
+    rgba(210,210,218,.08) 66%,
+    transparent 76%,
+    transparent 100%
+  );
+  filter:blur(7px);
+  transform:translateX(-145%) rotate(10deg);
+  animation:acmGlaze 3s ease-in-out .8s infinite;
+  pointer-events:none;
+  z-index:1;
+}
+
+.btn-acm::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  box-shadow:0 0 0 0 rgba(128,136,176,.24);
+  animation:acmPulse 3.2s ease-in-out .8s infinite;
+  pointer-events:none;
+  z-index:0;
+}
+
+.btn-acm img{
+  position:relative;
+  z-index:2;
+}
+
+@keyframes acmGlaze{
+  0%{
+    transform:translateX(-145%) rotate(10deg);
+    opacity:0;
+  }
+  12%{
+    opacity:.95;
+  }
+  42%{
+    transform:translateX(145%) rotate(10deg);
+    opacity:.95;
+  }
+  56%{
+    opacity:0;
+  }
+  100%{
+    transform:translateX(145%) rotate(10deg);
+    opacity:0;
+  }
+}
+
+@keyframes acmPulse{
+  0%, 100%{
+    box-shadow:0 0 0 0 rgba(128,136,176,0);
+  }
+  18%{
+    box-shadow:0 0 0 9px rgba(128,136,176,.12);
+  }
+  38%{
+    box-shadow:0 0 0 16px rgba(128,136,176,0);
+  }
+}
+
+.btn-acm:hover{
+  opacity:.92;
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:
+    0 5px 14px rgba(70,52,34,.08),
+    0 10px 30px rgba(70,52,34,.08),
+    0 0 24px rgba(128,136,176,.18);
+}
 .btn-acm:active{transform:scale(.97);}
 
 /* ── ACM PAGE ── */
